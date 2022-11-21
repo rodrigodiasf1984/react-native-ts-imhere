@@ -23,9 +23,8 @@ export function Home() {
           <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
       </View>
-      <Participant />
-      <Participant />
-      <Participant />
+      <Participant name="Rodrigo" />
+      <Participant name="Lucas" />
     </View>
   );
 }
