@@ -1,4 +1,5 @@
 import {
+  Alert,
   FlatList,
   ScrollView,
   Text,
@@ -6,33 +7,51 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useCallback, useMemo } from 'react';
 import { Participant } from '../../components/Participant';
 import { EmptyList } from '../../components/EmptyList';
 import { styles } from './styles';
 
 export function Home() {
-  const participants = [
-    'Rodrigo',
-    'Lucas',
-    'Beatriz',
-    'Liliane',
-    'João',
-    'José',
-    'Manoel',
-    'Maria',
-    'Sebastião',
-    'Pedro',
-    'Thiago',
-    'Eric',
-  ];
+  const participants = useMemo(
+    () => [
+      'Rodrigo',
+      'Lucas',
+      'Beatriz',
+      'Liliane',
+      'João',
+      'José',
+      'Manoel',
+      'Maria',
+      'Sebastião',
+      'Pedro',
+      'Thiago',
+      'Eric',
+    ],
+    [],
+  );
 
   const handleRemoveParticipant = (name: string) => {
-    console.log(`clickou em remover o participante ${name}`);
+    Alert.alert('Remover', `Desejar Remover o participant ${name}?`, [
+      {
+        text: 'Sim',
+        onPress: () => Alert.alert('Participante deletado'),
+      },
+      {
+        text: 'Não',
+        style: 'cancel',
+      },
+    ]);
   };
 
-  const handleAddParticipant = () => {
-    console.log('adicionar');
-  };
+  const handleParticipantAdd = useCallback(() => {
+    if (participants.includes('Rodrigo')) {
+      Alert.alert(
+        'Participante existe',
+        'Já existe um participante na lista com esse nome.',
+      );
+    }
+  }, [participants]);
 
   return (
     <View style={styles.container}>
@@ -45,7 +64,7 @@ export function Home() {
           placeholder="Nome do participante"
           placeholderTextColor="#6B6B6B"
         />
-        <TouchableOpacity style={styles.button} onPress={handleAddParticipant}>
+        <TouchableOpacity style={styles.button} onPress={handleParticipantAdd}>
           <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
       </View>
