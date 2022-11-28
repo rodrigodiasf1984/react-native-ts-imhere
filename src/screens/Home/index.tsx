@@ -1,35 +1,18 @@
 import {
   Alert,
   FlatList,
-  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useState } from 'react';
 import { Participant } from '../../components/Participant';
 import { EmptyList } from '../../components/EmptyList';
 import { styles } from './styles';
 
 export function Home() {
-  const participants = useMemo(
-    () => [
-      'Rodrigo',
-      'Lucas',
-      'Beatriz',
-      'Liliane',
-      'João',
-      'José',
-      'Manoel',
-      'Maria',
-      'Sebastião',
-      'Pedro',
-      'Thiago',
-      'Eric',
-    ],
-    [],
-  );
+  const [participants, setParticipants] = useState(['Rodrigo']);
 
   const handleRemoveParticipant = (name: string) => {
     Alert.alert('Remover', `Desejar Remover o participant ${name}?`, [
@@ -45,12 +28,14 @@ export function Home() {
   };
 
   const handleParticipantAdd = useCallback(() => {
-    if (participants.includes('Rodrigo')) {
+    if (participants.includes('Ana')) {
       Alert.alert(
         'Participante existe',
         'Já existe um participante na lista com esse nome.',
       );
+      return;
     }
+    setParticipants([...participants, 'Ana']);
   }, [participants]);
 
   return (
