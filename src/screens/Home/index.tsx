@@ -13,6 +13,7 @@ import { styles } from './styles';
 
 export function Home() {
   const [participants, setParticipants] = useState(['Rodrigo']);
+  const [participantName, setParticipantName] = useState('');
 
   const handleRemoveParticipant = (name: string) => {
     Alert.alert('Remover', `Desejar Remover o participant ${name}?`, [
@@ -28,15 +29,16 @@ export function Home() {
   };
 
   const handleParticipantAdd = useCallback(() => {
-    if (participants.includes('Ana')) {
+    if (participants.includes(participantName)) {
       Alert.alert(
         'Participante existe',
         'Já existe um participante na lista com esse nome.',
       );
       return;
     }
-    setParticipants([...participants, 'Ana']);
-  }, [participants]);
+    setParticipants([...participants, participantName]);
+    setParticipantName('');
+  }, [participantName, participants]);
 
   return (
     <View style={styles.container}>
@@ -48,6 +50,8 @@ export function Home() {
           style={styles.input}
           placeholder="Nome do participante"
           placeholderTextColor="#6B6B6B"
+          onChangeText={setParticipantName}
+          value={participantName}
         />
         <TouchableOpacity style={styles.button} onPress={handleParticipantAdd}>
           <Text style={styles.buttonText}>+</Text>
